@@ -1,18 +1,72 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Restaurant, Comment} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      email: 'cody@email.com',
+      password: '123',
+      username: 'Cody'
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      username: 'Murphy'
+    })
+  ])
+
+  const restaurants = await Promise.all([
+    Restaurant.create({
+      name: 'Ribalta',
+      address: '48 E 12th St',
+      city: 'New York',
+      state: 'NY',
+      zipcode: '10003',
+      upvotes: 2686,
+      cuisine: 'italian'
+    }),
+    Restaurant.create({
+      name: 'Senza Gluten',
+      address: '206 Sullivan St',
+      city: 'New York',
+      state: 'NY',
+      zipcode: '10012',
+      cuisine: 'italian'
+    }),
+    Restaurant.create({
+      name: 'L.A. Burrito',
+      address: '67 Wilson Ave',
+      city: 'Brooklyn',
+      state: 'NY',
+      zipcode: '11237',
+      cuisine: 'mexican'
+    })
+  ])
+
+  const comments = await Promise.all([
+    Comment.create({
+      content: `Ribalta has delicious gluten free dough AND vegan cheese options.  It's my favorite pizza place!`,
+      upvotes: 156,
+      restaurantId: 1,
+      userId: 2
+    }),
+    Comment.create({
+      content:
+        'Order the corn shell tacos without onions, pico del gallo, and black beans.  Hold the cheese if you are sensitive to dairy.',
+      upvotes: 2,
+      restaurantId: 3,
+      userId: 1
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${restaurants.length} restaurants`)
+  console.log(`seeded ${comments.length} comments`)
   console.log(`seeded successfully`)
 }
 
