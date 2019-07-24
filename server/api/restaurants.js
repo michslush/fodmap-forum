@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:name', async (req, res, next) => {
+router.get('/byName/:name', async (req, res, next) => {
   try {
     let restaurantsByName = await Restaurant.findByName(req.params.name)
     res.json(restaurantsByName)
@@ -22,7 +22,7 @@ router.get('/:name', async (req, res, next) => {
   }
 })
 
-router.get('/:cuisine', async (req, res, next) => {
+router.get('/byCuisine/:cuisine', async (req, res, next) => {
   try {
     const restaurantsByCuisine = await Restaurant.findByCuisine(
       req.params.cuisine

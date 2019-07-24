@@ -21,7 +21,7 @@ class SearchCard extends React.Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    this.props.searchThunk(this.state.searchVal)
+    this.props.searchThunk(this.state.searchVal, this.props.current.searchType)
     this.setState({
       redirectToResults: true
     })
@@ -31,8 +31,16 @@ class SearchCard extends React.Component {
     const {current} = this.props
     const {searchVal, redirectToResults} = this.state
 
-    if (redirectToResults) {
-      return <Redirect to="/restaurants/ribalta" />
+    if (redirectToResults && current.searchType === 'name') {
+      return <Redirect to={`/restaurants/byName/${searchVal}`} />
+    }
+
+    if (redirectToResults && current.searchType === 'cuisine') {
+      return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
+    }
+
+    if (redirectToResults && current.searchType === 'location') {
+      return <Redirect to={`/restaurants/byLocation/${searchVal}`} />
     }
 
     return (
@@ -65,7 +73,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  searchThunk: name => dispatch(searchThunk(name))
+  searchThunk: (name, type) => dispatch(searchThunk(name, type))
 })
 
 export default connect(mapState, mapDispatch)(SearchCard)

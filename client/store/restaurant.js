@@ -31,10 +31,17 @@ export const getRestaurants = () => async dispatch => {
   }
 }
 
-export const searchThunk = name => async dispatch => {
+export const searchThunk = (name, searchType) => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/restaurants/${name}`)
-    dispatch(searchByNameAction(data))
+    if (searchType === 'name') {
+      const {data} = await axios.get(`/api/restaurants/byName/${name}`)
+      dispatch(searchByNameAction(data))
+    }
+
+    if (searchType === 'cuisine') {
+      const {data} = await axios.get(`/api/restaurants/byCuisine/${name}`)
+      dispatch(searchByNameAction(data))
+    }
   } catch (err) {
     console.error(err)
   }

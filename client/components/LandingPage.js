@@ -4,6 +4,7 @@ import SearchCard from './SearchCard'
 
 const restaurantCard = {
   id: 1,
+  searchType: 'name',
   imgSrc: 'restaurant.png',
   cardTitle: 'Search by Restaurant',
   cardText:
@@ -12,6 +13,7 @@ const restaurantCard = {
 
 const cuisineCard = {
   id: 2,
+  searchType: 'cuisine',
   imgSrc: 'cuisine.png',
   cardTitle: 'Search by Cuisine',
   cardText: `Whatever you're in the mood for, you can search for it here.`
@@ -19,6 +21,7 @@ const cuisineCard = {
 
 const locationCard = {
   id: 3,
+  searchType: 'location',
   imgSrc: 'location.png',
   cardTitle: 'Search by Location',
   cardText: 'WYA?'

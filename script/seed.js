@@ -28,7 +28,7 @@ async function seed() {
       state: 'NY',
       zipcode: '10003',
       upvotes: 2686,
-      cuisine: 'italian'
+      cuisine: 'Italian'
     }),
     Restaurant.create({
       name: 'Senza Gluten',
@@ -36,7 +36,7 @@ async function seed() {
       city: 'New York',
       state: 'NY',
       zipcode: '10012',
-      cuisine: 'italian'
+      cuisine: 'Italian'
     }),
     Restaurant.create({
       name: 'L.A. Burrito',
@@ -44,7 +44,7 @@ async function seed() {
       city: 'Brooklyn',
       state: 'NY',
       zipcode: '11237',
-      cuisine: 'mexican'
+      cuisine: 'Mexican'
     })
   ])
 
