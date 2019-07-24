@@ -1,36 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
+import {getRestaurants} from '../store/restaurant'
+import LandingPage from './LandingPage'
 
-/**
- * COMPONENT
- */
-export const UserHome = props => {
-  const {email} = props
+class UserHome extends React.Component {
+  componentDidMount() {
+    this.props.getRestaurants()
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      {/* <Link to="/search">Search</Link> */}
-    </div>
-  )
+  render() {
+    const {email} = this.props
+
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+        <LandingPage />
+      </div>
+    )
+  }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
+    restaurants: state.restaurants,
     email: state.user.email
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => {
+  return {
+    getRestaurants: () => dispatch(getRestaurants())
+  }
+}
 
-/**
- * PROP TYPES
- */
+export default connect(mapState, mapDispatch)(UserHome)
+
 UserHome.propTypes = {
   email: PropTypes.string
 }

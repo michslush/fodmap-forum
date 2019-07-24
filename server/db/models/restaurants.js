@@ -5,7 +5,16 @@ const Comment = require('./comments')
 const Restaurant = db.define('restaurant', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value) {
+      this.setDataValue('name', value.toLowerCase())
+    },
+    get() {
+      return this.getDataValue('name')
+        .split(' ')
+        .map(cur => cur[0].toUpperCase() + cur.slice(1))
+        .join(' ')
+    }
   },
   address: {
     type: Sequelize.STRING,
@@ -28,9 +37,28 @@ const Restaurant = db.define('restaurant', {
     defaultValue: 0
   },
   cuisine: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    set(value) {
+      this.setDataValue('cuisine', value.toLowerCase())
+    },
+    get() {
+      return this.getDataValue('cuisine')
+        .split(' ')
+        .map(cur => cur[0].toUpperCase() + cur.slice(1))
+        .join(' ')
+    }
   }
 })
+
+Restaurant.findByName = async function(name) {
+  const restaurants = await Restaurant.findAll({
+    where: {
+      name
+    },
+    include: [{model: Comment}]
+  })
+  return restaurants
+}
 
 Restaurant.findByCuisine = async function(cuisine) {
   const restaurants = await Restaurant.findAll({

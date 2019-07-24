@@ -1,39 +1,23 @@
 import axios from 'axios'
 
-/**
- * ACTION TYPES
- */
-const GET_RESTAURANT = 'GET_RESTAURANT'
+// ACTION TYPES
+const GET_RESTAURANTS = 'GET_RESTAURANTS'
 
-/**
- * INITIAL STATE
- */
-const defaultRestaurant = {}
+// INITIAL STATE
+const restaurants = []
 
-/**
- * ACTION CREATORS
- */
-const getRestaurant = restaurant => ({type: GET_RESTAURANT, restaurant})
+// ACTION CREATORS
+const getRestaurantsAction = data => ({
+  type: GET_RESTAURANTS,
+  data
+})
 
-/**
- * THUNK CREATORS
- */
-export const getRestaurantThunk = locationSearched => async dispatch => {
+// THUNKS
+export const getRestaurants = () => async dispatch => {
   try {
-    const {data} = await axios.get(
-      'https://api.yelp.com/v3/businesses/search',
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.YELP_API_KEY}`
-        },
-        params: {
-          location: {locationSearched},
-          categories: 'breakfast_brunch'
-        }
-      }
-    )
+    const {data} = await axios.get('/api/restaurants')
 
-    dispatch(getRestaurant(data || defaultRestaurant))
+    dispatch(getRestaurantsAction(data))
   } catch (err) {
     console.error(err)
   }
@@ -42,10 +26,10 @@ export const getRestaurantThunk = locationSearched => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultRestaurant, action) {
+export default function(state = restaurants, action) {
   switch (action.type) {
-    case GET_RESTAURANT:
-      return action.restaurant
+    case GET_RESTAURANTS:
+      return action.data
     default:
       return state
   }
