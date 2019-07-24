@@ -33,12 +33,9 @@ router.get('/byCuisine/:cuisine', async (req, res, next) => {
   }
 })
 
-router.get('/:city/:state', async (req, res, next) => {
+router.get('/byLocation/:location', async (req, res, next) => {
   try {
-    const restaurantsByPlace = await Restaurant.findByPlace(
-      req.params.city,
-      req.params.state
-    )
+    const restaurantsByPlace = await Restaurant.findByPlace(req.params.location)
     res.json(restaurantsByPlace)
   } catch (err) {
     next(err)

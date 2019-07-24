@@ -42,6 +42,11 @@ export const searchThunk = (name, searchType) => async dispatch => {
       const {data} = await axios.get(`/api/restaurants/byCuisine/${name}`)
       dispatch(searchByNameAction(data))
     }
+
+    if (searchType === 'location') {
+      const {data} = await axios.get(`/api/restaurants/byLocation/${name}`)
+      dispatch(searchByNameAction(data))
+    }
   } catch (err) {
     console.error(err)
   }

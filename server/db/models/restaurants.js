@@ -22,11 +22,29 @@ const Restaurant = db.define('restaurant', {
   },
   city: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value) {
+      this.setDataValue('city', value.toLowerCase())
+    },
+    get() {
+      return this.getDataValue('city')
+        .split(' ')
+        .map(cur => cur[0].toUpperCase() + cur.slice(1))
+        .join(' ')
+    }
   },
   state: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    set(value) {
+      this.setDataValue('state', value.toLowerCase())
+    },
+    get() {
+      return this.getDataValue('state')
+        .split(' ')
+        .map(cur => cur[0].toUpperCase() + cur.slice(1))
+        .join(' ')
+    }
   },
   zipcode: {
     type: Sequelize.STRING,
@@ -70,7 +88,11 @@ Restaurant.findByCuisine = async function(cuisine) {
   return restaurants
 }
 
-Restaurant.findByPlace = async function(city, state) {
+Restaurant.findByPlace = async function(input) {
+  input = input.split(', ')
+  const city = input[0]
+  const state = input[1]
+
   const restaurants = await Restaurant.findAll({
     where: {
       city,
