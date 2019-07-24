@@ -4,7 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, LandingPage} from './components'
 import {me} from './store'
-import Search from './components/Search'
+import SearchResults from './components/SearchResults'
 
 class Routes extends Component {
   componentDidMount() {
@@ -19,10 +19,11 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/searchResults" component={SearchResults} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
-            <Route path="/search" component={Search} />
+            <Route path="/searchResults" component={SearchResults} />
           </Switch>
         )}
         <Route component={Login} />

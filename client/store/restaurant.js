@@ -7,7 +7,7 @@ const SEARCH_BY_NAME = 'SEARCH_BY_NAME'
 // INITIAL STATE
 const initialState = {
   restaurants: [],
-  restaurant: {}
+  restaurantsFromSearch: []
 }
 
 // ACTION CREATORS
@@ -48,7 +48,7 @@ export default function(state = initialState, action) {
     case GET_RESTAURANTS:
       return {...state, restaurants: action.data}
     case SEARCH_BY_NAME:
-      return {...state, restaurant: action.data}
+      return {...state, restaurantsFromSearch: action.data}
     default:
       return state
   }

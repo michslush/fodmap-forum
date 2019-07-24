@@ -51,7 +51,7 @@ const Restaurant = db.define('restaurant', {
 })
 
 Restaurant.findByName = async function(name) {
-  const restaurants = await Restaurant.findOne({
+  const restaurants = await Restaurant.findAll({
     where: {
       name
     },

@@ -3,6 +3,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import SearchCard from './SearchCard'
 
 const restaurantCard = {
+  id: 1,
   imgSrc: 'restaurant.png',
   cardTitle: 'Search by Restaurant',
   cardText:
@@ -10,12 +11,14 @@ const restaurantCard = {
 }
 
 const cuisineCard = {
+  id: 2,
   imgSrc: 'cuisine.png',
   cardTitle: 'Search by Cuisine',
   cardText: `Whatever you're in the mood for, you can search for it here.`
 }
 
 const locationCard = {
+  id: 3,
   imgSrc: 'location.png',
   cardTitle: 'Search by Location',
   cardText: 'WYA?'

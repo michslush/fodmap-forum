@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:name', async (req, res, next) => {
   try {
-    const restaurantsByName = await Restaurant.findByName(req.params.name)
+    let restaurantsByName = await Restaurant.findByName(req.params.name)
     res.json(restaurantsByName)
   } catch (err) {
     next(err)
