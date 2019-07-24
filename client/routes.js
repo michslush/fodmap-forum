@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, LandingPage} from './components'
 import {me} from './store'
 import SearchResults from './components/SearchResults'
+import SingleRestaurant from './components/SingleRestaurant'
 
 class Routes extends Component {
   componentDidMount() {
@@ -19,11 +20,26 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/restaurants/:name" component={SearchResults} />
+        <Route path="/restaurants/byName/:name" component={SearchResults} />
+        <Route path="/restaurants/byCuisine/:name" component={SearchResults} />
+        <Route path="/restaurants/byLocation/:name" component={SearchResults} />
+        <Route
+          path="/restaurants/singleRestaurant/:name"
+          component={SingleRestaurant}
+        />
+
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
-            <Route path="/restaurants/:name" component={SearchResults} />
+            <Route path="/restaurants/byName/:name" component={SearchResults} />
+            <Route
+              path="/restaurants/byCuisine/:name"
+              component={SearchResults}
+            />
+            <Route
+              path="/restaurants/byLocation/:name"
+              component={SearchResults}
+            />
           </Switch>
         )}
         <Route component={Login} />
@@ -31,6 +47,8 @@ class Routes extends Component {
     )
   }
 }
+
+// restaurants/byName/ribalta
 
 const mapState = state => {
   return {

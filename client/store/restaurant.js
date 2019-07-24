@@ -2,12 +2,14 @@ import axios from 'axios'
 
 // ACTION TYPES
 const GET_RESTAURANTS = 'GET_RESTAURANTS'
-const SEARCH_BY_NAME = 'SEARCH_BY_NAME'
+const SEARCH = 'SEARCH'
+const SINGLE_RESTAURANT = 'SINGLE_RESTAURANT'
 
 // INITIAL STATE
 const initialState = {
   restaurants: [],
-  restaurantsFromSearch: []
+  restaurantsFromSearch: [],
+  singleRestaurant: {}
 }
 
 // ACTION CREATORS
@@ -16,8 +18,13 @@ const getRestaurantsAction = data => ({
   data
 })
 
-const searchByNameAction = data => ({
-  type: SEARCH_BY_NAME,
+const searchAction = data => ({
+  type: SEARCH,
+  data
+})
+
+const singleRestaurantAction = data => ({
+  type: SINGLE_RESTAURANT,
   data
 })
 
@@ -35,18 +42,28 @@ export const searchThunk = (name, searchType) => async dispatch => {
   try {
     if (searchType === 'name') {
       const {data} = await axios.get(`/api/restaurants/byName/${name}`)
-      dispatch(searchByNameAction(data))
+      dispatch(searchAction(data))
     }
 
     if (searchType === 'cuisine') {
       const {data} = await axios.get(`/api/restaurants/byCuisine/${name}`)
-      dispatch(searchByNameAction(data))
+      dispatch(searchAction(data))
     }
 
     if (searchType === 'location') {
       const {data} = await axios.get(`/api/restaurants/byLocation/${name}`)
-      dispatch(searchByNameAction(data))
+      dispatch(searchAction(data))
     }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const getSingleRestaurantThunk = restaurantName => async dispatch => {
+  try {
+    restaurantName = restaurantName.toLowerCase()
+    const {data} = await axios.get(`/api/restaurants/${restaurantName}`)
+    dispatch(singleRestaurantAction(data))
   } catch (err) {
     console.error(err)
   }
@@ -59,8 +76,10 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_RESTAURANTS:
       return {...state, restaurants: action.data}
-    case SEARCH_BY_NAME:
+    case SEARCH:
       return {...state, restaurantsFromSearch: action.data}
+    case SINGLE_RESTAURANT:
+      return {...state, singleRestaurant: action.data}
     default:
       return state
   }

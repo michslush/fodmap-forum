@@ -1,5 +1,5 @@
 import React from 'react'
-import {SingleRestaurant} from './SingleRestaurant'
+import {Restaurant} from './Restaurant'
 import {connect} from 'react-redux'
 
 class SearchResults extends React.Component {
@@ -8,7 +8,7 @@ class SearchResults extends React.Component {
 
     if (restaurants.length) {
       return restaurants.map(restaurant => (
-        <SingleRestaurant key={restaurant.id} restaurant={restaurant} />
+        <Restaurant key={restaurant.id} restaurant={restaurant} />
       ))
     } else {
       return <div>Loading results...</div>

@@ -41,3 +41,18 @@ router.get('/byLocation/:location', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:restaurantName', async (req, res, next) => {
+  try {
+    let restaurant = await Restaurant.findOne({
+      where: {
+        name: req.params.restaurantName
+      },
+      include: [{model: Comment}]
+    })
+    console.log('api rest', restaurant)
+    res.json(restaurant)
+  } catch (err) {
+    next(err)
+  }
+})

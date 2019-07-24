@@ -1,31 +1,45 @@
 import React from 'react'
-import {Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {connect} from 'react-redux'
+import {getSingleRestaurantThunk} from '../store/restaurant'
+import {Jumbotron, Button} from 'react-bootstrap'
 
-export const SingleRestaurant = props => {
-  const {restaurant} = props
+class SingleRestaurant extends React.Component {
+  componentDidMount() {
+    this.props.getSingleRestaurantThunk(this.props.match.params.name)
+  }
 
-  return (
-    <Card style={{width: '18rem'}}>
-      {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> */}
-      <Card.Body>
-        <Card.Title>{restaurant.name}</Card.Title>
-        <Card.Text>{restaurant.cuisine} Cuisine</Card.Text>
-        <Card.Text>
-          {restaurant.address} {restaurant.city}, {restaurant.state}
-        </Card.Text>
-      </Card.Body>
-      <Card.Body>
-        <Card.Header>Comments</Card.Header>
-        <ListGroup className="list-group-flush">
-          {restaurant.comments.length ? (
-            restaurant.comments.map(comment => (
-              <ListGroupItem key={comment.id}>{comment.content}</ListGroupItem>
-            ))
-          ) : (
-            <div>No comments yet!</div>
-          )}
-        </ListGroup>
-      </Card.Body>
-    </Card>
-  )
+  render() {
+    const {restaurant} = this.props
+
+    if (restaurant)
+      return (
+        <Jumbotron>
+          <h1>{restaurant.name}</h1>
+          <h4>
+            {restaurant.address} {restaurant.city}, {restaurant.state}
+          </h4>
+          <ul>
+            {restaurant.comments &&
+              restaurant.comments.map(comment => (
+                <li key={comment.id}>{comment.content}</li>
+              ))}
+          </ul>
+          <p>
+            <Button variant="primary">Add a new comment!</Button>
+          </p>
+        </Jumbotron>
+      )
+
+    return <div>Loading...</div>
+  }
 }
+
+const MapDispatch = dispatch => ({
+  getSingleRestaurantThunk: name => dispatch(getSingleRestaurantThunk(name))
+})
+
+const MapState = state => ({
+  restaurant: state.restaurants.singleRestaurant
+})
+
+export default connect(MapState, MapDispatch)(SingleRestaurant)
