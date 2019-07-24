@@ -32,7 +32,7 @@ class SearchCard extends React.Component {
     const {searchVal, redirectToResults} = this.state
 
     if (redirectToResults) {
-      return <Redirect to="/searchResults" />
+      return <Redirect to="/restaurants/ribalta" />
     }
 
     return (

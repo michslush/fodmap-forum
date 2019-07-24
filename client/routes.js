@@ -19,11 +19,11 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/searchResults" component={SearchResults} />
+        <Route path="/restaurants/:name" component={SearchResults} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
-            <Route path="/searchResults" component={SearchResults} />
+            <Route path="/restaurants/:name" component={SearchResults} />
           </Switch>
         )}
         <Route component={Login} />
