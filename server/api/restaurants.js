@@ -50,7 +50,6 @@ router.get('/:restaurantName', async (req, res, next) => {
       },
       include: [{model: Comment}]
     })
-    console.log('api rest', restaurant)
     res.json(restaurant)
   } catch (err) {
     next(err)

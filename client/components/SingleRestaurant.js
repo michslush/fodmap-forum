@@ -2,14 +2,29 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleRestaurantThunk} from '../store/restaurant'
 import {Jumbotron, Button} from 'react-bootstrap'
+import {CommentForm} from './index'
 
 class SingleRestaurant extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      showForm: false
+    }
+  }
+
   componentDidMount() {
     this.props.getSingleRestaurantThunk(this.props.match.params.name)
   }
 
+  handleClick = () => {
+    this.state.showForm
+      ? this.setState({showForm: false})
+      : this.setState({showForm: true})
+  }
+
   render() {
     const {restaurant} = this.props
+    const {showForm} = this.state
 
     if (restaurant)
       return (
@@ -25,8 +40,11 @@ class SingleRestaurant extends React.Component {
               ))}
           </ul>
           <p>
-            <Button variant="primary">Add a new comment!</Button>
+            <Button type="button" variant="primary" onClick={this.handleClick}>
+              Add a new comment!
+            </Button>
           </p>
+          {showForm && <CommentForm restaurantId={restaurant.id} />}
         </Jumbotron>
       )
 
@@ -40,6 +58,7 @@ const MapDispatch = dispatch => ({
 
 const MapState = state => ({
   restaurant: state.restaurants.singleRestaurant
+  // comments: state.comments.comment
 })
 
 export default connect(MapState, MapDispatch)(SingleRestaurant)

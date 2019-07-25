@@ -4,6 +4,7 @@ import axios from 'axios'
 const GET_RESTAURANTS = 'GET_RESTAURANTS'
 const SEARCH = 'SEARCH'
 const SINGLE_RESTAURANT = 'SINGLE_RESTAURANT'
+const POST_COMMENT = 'POST_COMMENT'
 
 // INITIAL STATE
 const initialState = {
@@ -25,6 +26,11 @@ const searchAction = data => ({
 
 const singleRestaurantAction = data => ({
   type: SINGLE_RESTAURANT,
+  data
+})
+
+const postCommentAction = data => ({
+  type: POST_COMMENT,
   data
 })
 
@@ -69,6 +75,15 @@ export const getSingleRestaurantThunk = restaurantName => async dispatch => {
   }
 }
 
+export const postCommentThunk = newComment => async dispatch => {
+  try {
+    const {data} = await axios.post('/api/comments/addComment', newComment)
+    dispatch(postCommentAction(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -79,6 +94,8 @@ export default function(state = initialState, action) {
     case SEARCH:
       return {...state, restaurantsFromSearch: action.data}
     case SINGLE_RESTAURANT:
+      return {...state, singleRestaurant: action.data}
+    case POST_COMMENT:
       return {...state, singleRestaurant: action.data}
     default:
       return state
