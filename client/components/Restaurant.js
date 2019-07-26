@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Card, ListGroup, ListGroupItem, Row, Col} from 'react-bootstrap'
 
 export const Restaurant = props => {
   const {restaurant} = props
@@ -23,13 +23,18 @@ export const Restaurant = props => {
       <Card.Body>
         <Card.Header>Comments</Card.Header>
         <ListGroup className="list-group-flush">
-          {restaurant.comments.length ? (
-            restaurant.comments.map(comment => (
-              <ListGroupItem key={comment.id}>{comment.content}</ListGroupItem>
-            ))
-          ) : (
-            <div>No comments yet!</div>
-          )}
+          <Row>
+            {restaurant.comments.length ? (
+              restaurant.comments.map(comment => (
+                <ListGroupItem key={comment.id}>
+                  <Col>{comment.content}</Col>
+                  <Col> Upvotes: {comment.upvotes}</Col>
+                </ListGroupItem>
+              ))
+            ) : (
+              <div>No comments yet!</div>
+            )}
+          </Row>
         </ListGroup>
       </Card.Body>
     </Card>
