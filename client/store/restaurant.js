@@ -2,7 +2,6 @@ import axios from 'axios'
 
 // ACTION TYPES
 const GET_RESTAURANTS_ZIPCODE = 'GET_RESTAURANTS_ZIPCODE'
-const GET_RESTAURANTS = 'GET_RESTAURANTS'
 const SEARCH = 'SEARCH'
 const SINGLE_RESTAURANT = 'SINGLE_RESTAURANT'
 const POST_COMMENT = 'POST_COMMENT'
@@ -10,21 +9,11 @@ const POST_COMMENT = 'POST_COMMENT'
 // INITIAL STATE
 const initialState = {
   restaurants: [],
-  restaurantsFromSearch: {},
+  restaurantsFromSearch: [],
   singleRestaurant: {}
 }
 
 // ACTION CREATORS
-const getRestaurantsByZip = data => ({
-  type: GET_RESTAURANTS_ZIPCODE,
-  data
-})
-
-const getRestaurantsAction = data => ({
-  type: GET_RESTAURANTS,
-  data
-})
-
 const searchAction = data => ({
   type: SEARCH,
   data
@@ -41,40 +30,13 @@ const postCommentAction = data => ({
 })
 
 // THUNKS
-export const getRestaurantsByZipThunk = zipcode => async dispatch => {
-  try {
-    const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com'
-    const yelpApiSearchUrl = 'https://api.yelp.com/v3/businesses/search'
-
-    const key = await axios.get('/api/restaurants')
-
-    const {data} = await axios.get(corsAnywhereUrl + '/' + yelpApiSearchUrl, {
-      headers: {
-        Authorization: `Bearer ${key.data}`
-      },
-      params: {
-        term: 'restaurants',
-        location: zipcode
-      }
-    })
-
-    dispatch(getRestaurantsByZip(data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-export const getRestaurants = () => async dispatch => {
-  try {
-    const {data} = await axios.get('/api/restaurants')
-    dispatch(getRestaurantsAction(data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
 export const searchThunk = (name, searchType) => async dispatch => {
   try {
+    // Yelp
+    const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com'
+    const yelpApiSearchUrl = 'https://api.yelp.com/v3/businesses/search'
+    const key = await axios.get('/api/restaurants')
+
     if (searchType === 'name') {
       const {data} = await axios.get(`/api/restaurants/byName/${name}`)
       dispatch(searchAction(data))
@@ -86,7 +48,15 @@ export const searchThunk = (name, searchType) => async dispatch => {
     }
 
     if (searchType === 'location') {
-      const {data} = await axios.get(`/api/restaurants/byLocation/${name}`)
+      const {data} = await axios.get(corsAnywhereUrl + '/' + yelpApiSearchUrl, {
+        headers: {
+          Authorization: `Bearer ${key.data}`
+        },
+        params: {
+          term: 'restaurants',
+          location: name
+        }
+      })
       dispatch(searchAction(data))
     }
   } catch (err) {
@@ -118,12 +88,10 @@ export const postCommentThunk = newComment => async dispatch => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_RESTAURANTS:
-      return {...state, restaurants: action.data}
     case GET_RESTAURANTS_ZIPCODE:
       return {...state, restaurantsFromSearch: action.data}
     case SEARCH:
-      return {...state, restaurantsFromSearch: action.data}
+      return {...state, restaurantsFromSearch: action.data.businesses}
     case SINGLE_RESTAURANT:
       return {...state, singleRestaurant: action.data}
     case POST_COMMENT:

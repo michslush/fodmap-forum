@@ -1,9 +1,8 @@
 import React from 'react'
 import {searchThunk} from '../store/restaurant'
-import {Card} from 'react-bootstrap'
+import {Card, Form, FormControl, Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import SearchByZipcode from './SearchByZipcode'
 
 class SearchCard extends React.Component {
   constructor() {
@@ -32,13 +31,13 @@ class SearchCard extends React.Component {
     const {current} = this.props
     const {searchVal, redirectToResults} = this.state
 
-    // if (redirectToResults && current.searchType === 'name') {
-    //   return <Redirect to={`/restaurants/byName/${searchVal}`} />
-    // }
+    if (redirectToResults && current.searchType === 'name') {
+      return <Redirect to={`/restaurants/byName/${searchVal}`} />
+    }
 
-    // if (redirectToResults && current.searchType === 'cuisine') {
-    //   return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
-    // }
+    if (redirectToResults && current.searchType === 'cuisine') {
+      return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
+    }
 
     if (redirectToResults && current.searchType === 'location') {
       return <Redirect to={`/restaurants/byLocation/${searchVal}`} />
@@ -50,8 +49,7 @@ class SearchCard extends React.Component {
         <Card.Body>
           <Card.Title>{current.cardTitle}</Card.Title>
           <Card.Text>{current.cardText}</Card.Text>
-          <SearchByZipcode />
-          {/* <Form onSubmit={this.handleSubmit} inline>
+          <Form onSubmit={this.handleSubmit} inline>
             <FormControl
               type="text"
               name="searchVal"
@@ -63,7 +61,7 @@ class SearchCard extends React.Component {
             <Button type="submit" variant="outline-info">
               Search
             </Button>
-          </Form> */}
+          </Form>
         </Card.Body>
       </Card>
     )

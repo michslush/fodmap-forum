@@ -15,16 +15,22 @@ export const Restaurant = props => {
             {restaurant.name}
           </Card.Link>
         </Card.Title>
-        <Card.Text>{restaurant.cuisine} Cuisine</Card.Text>
+        <Card.Img variant="top" src={restaurant.image_url} />
         <Card.Text>
-          {restaurant.address} {restaurant.city}, {restaurant.state}
+          {restaurant.categories.map(current => current.title).join(', ')}
+        </Card.Text>
+        <Card.Text>{restaurant.display_phone}</Card.Text>
+        <Card.Text>{restaurant.location.address1}</Card.Text>
+        <Card.Text>
+          {restaurant.location.city}, {restaurant.location.state}{' '}
+          {restaurant.location.zip_code}
         </Card.Text>
       </Card.Body>
       <Card.Body>
         <Card.Header>Comments</Card.Header>
         <ListGroup className="list-group-flush">
           <Row>
-            {restaurant.comments.length ? (
+            {restaurant.comments ? (
               restaurant.comments.map(comment => (
                 <ListGroupItem key={comment.id}>
                   <Col>{comment.content}</Col>

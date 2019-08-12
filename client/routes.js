@@ -6,7 +6,6 @@ import {Login, Signup, UserHome, LandingPage} from './components'
 import {me} from './store'
 import SearchResults from './components/SearchResults'
 import SingleRestaurant from './components/SingleRestaurant'
-import AllRestaurants from './components/AllRestaurants'
 
 class Routes extends Component {
   componentDidMount() {
@@ -41,7 +40,6 @@ class Routes extends Component {
               path="/restaurants/byLocation/:name"
               component={SearchResults}
             />
-            <Route path="/allRestaurants" component={AllRestaurants} />
           </Switch>
         )}
         <Route component={Login} />
@@ -49,8 +47,6 @@ class Routes extends Component {
     )
   }
 }
-
-// restaurants/byName/ribalta
 
 const mapState = state => {
   return {
