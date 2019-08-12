@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 // ACTION TYPES
+const GET_RESTAURANTS_ZIPCODE = 'GET_RESTAURANTS_ZIPCODE'
 const GET_RESTAURANTS = 'GET_RESTAURANTS'
 const SEARCH = 'SEARCH'
 const SINGLE_RESTAURANT = 'SINGLE_RESTAURANT'
@@ -9,11 +10,16 @@ const POST_COMMENT = 'POST_COMMENT'
 // INITIAL STATE
 const initialState = {
   restaurants: [],
-  restaurantsFromSearch: [],
+  restaurantsFromSearch: {},
   singleRestaurant: {}
 }
 
 // ACTION CREATORS
+const getRestaurantsByZip = data => ({
+  type: GET_RESTAURANTS_ZIPCODE,
+  data
+})
+
 const getRestaurantsAction = data => ({
   type: GET_RESTAURANTS,
   data
@@ -35,6 +41,29 @@ const postCommentAction = data => ({
 })
 
 // THUNKS
+export const getRestaurantsByZipThunk = zipcode => async dispatch => {
+  try {
+    const corsAnywhereUrl = 'https://cors-anywhere.herokuapp.com'
+    const yelpApiSearchUrl = 'https://api.yelp.com/v3/businesses/search'
+
+    const key = await axios.get('/api/restaurants')
+
+    const {data} = await axios.get(corsAnywhereUrl + '/' + yelpApiSearchUrl, {
+      headers: {
+        Authorization: `Bearer ${key.data}`
+      },
+      params: {
+        term: 'restaurants',
+        location: zipcode
+      }
+    })
+
+    dispatch(getRestaurantsByZip(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getRestaurants = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/restaurants')
@@ -91,6 +120,8 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case GET_RESTAURANTS:
       return {...state, restaurants: action.data}
+    case GET_RESTAURANTS_ZIPCODE:
+      return {...state, restaurantsFromSearch: action.data}
     case SEARCH:
       return {...state, restaurantsFromSearch: action.data}
     case SINGLE_RESTAURANT:

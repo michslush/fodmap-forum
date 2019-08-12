@@ -2,12 +2,10 @@ const router = require('express').Router()
 const {Restaurant, Comment} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', (req, res, next) => {
   try {
-    const restaurants = await Restaurant.findAll({
-      include: [{model: Comment}]
-    })
-    res.json(restaurants)
+    const key = process.env.YELP_API_KEY
+    res.json(key)
   } catch (err) {
     next(err)
   }
