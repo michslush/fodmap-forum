@@ -1,18 +1,23 @@
 import React from 'react'
 import {Restaurant} from './Restaurant'
 import {connect} from 'react-redux'
+import {CardColumns, Spinner} from 'react-bootstrap'
 
 class SearchResults extends React.Component {
   render() {
     const {restaurants} = this.props
 
-    if (restaurants.length) {
-      return restaurants.map(restaurant => (
-        <Restaurant key={restaurant.id} restaurant={restaurant} />
-      ))
-    } else {
-      return <div>Loading results...</div>
-    }
+    return (
+      <CardColumns>
+        {restaurants.length ? (
+          restaurants.map(restaurant => (
+            <Restaurant key={restaurant.id} restaurant={restaurant} />
+          ))
+        ) : (
+          <Spinner animation="border" />
+        )}
+      </CardColumns>
+    )
   }
 }
 
