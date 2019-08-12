@@ -25,6 +25,9 @@ export const Restaurant = props => {
           {restaurant.location.city}, {restaurant.location.state}{' '}
           {restaurant.location.zip_code}
         </Card.Text>
+        <Card.Text>
+          Stars {restaurant.rating} | Cost {restaurant.price}
+        </Card.Text>
       </Card.Body>
       <Card.Body>
         <Card.Header>Comments</Card.Header>
