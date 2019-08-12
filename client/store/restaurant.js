@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 // ACTION TYPES
-const GET_RESTAURANTS_ZIPCODE = 'GET_RESTAURANTS_ZIPCODE'
 const SEARCH = 'SEARCH'
 const SINGLE_RESTAURANT = 'SINGLE_RESTAURANT'
 const POST_COMMENT = 'POST_COMMENT'
@@ -88,8 +87,6 @@ export const postCommentThunk = newComment => async dispatch => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_RESTAURANTS_ZIPCODE:
-      return {...state, restaurantsFromSearch: action.data}
     case SEARCH:
       return {...state, restaurantsFromSearch: action.data.businesses}
     case SINGLE_RESTAURANT:

@@ -2,7 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, LandingPage} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  LandingPage,
+  UnderConstruction
+} from './components'
 import {me} from './store'
 import SearchResults from './components/SearchResults'
 import SingleRestaurant from './components/SingleRestaurant'
@@ -27,6 +33,7 @@ class Routes extends Component {
           path="/restaurants/singleRestaurant/:name"
           component={SingleRestaurant}
         />
+        <Route path="/underConstruction" component={UnderConstruction} />
 
         {isLoggedIn && (
           <Switch>
@@ -40,6 +47,7 @@ class Routes extends Component {
               path="/restaurants/byLocation/:name"
               component={SearchResults}
             />
+            <Route path="/underConstruction" component={UnderConstruction} />
           </Switch>
         )}
         <Route component={Login} />

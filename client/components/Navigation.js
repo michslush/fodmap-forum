@@ -9,16 +9,16 @@ const Navigation = ({handleClick, isLoggedIn}) => (
     <Navbar.Brand href="/home">
       <h1>FODMAPforum</h1>
     </Navbar.Brand>
-    <Nav>
+    <Nav className="mr-auto">
       {isLoggedIn ? (
-        <div>
+        <div className="nav-links-custom">
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/" onClick={handleClick}>
             Logout
           </Nav.Link>
         </div>
       ) : (
-        <div>
+        <div className="nav-links-custom">
           <Nav.Link href="/login">Login</Nav.Link>
           <Nav.Link href="/signup">Sign Up</Nav.Link>
         </div>

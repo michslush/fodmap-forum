@@ -32,11 +32,13 @@ class SearchCard extends React.Component {
     const {searchVal, redirectToResults} = this.state
 
     if (redirectToResults && current.searchType === 'name') {
-      return <Redirect to={`/restaurants/byName/${searchVal}`} />
+      return <Redirect to="/underConstruction" />
+      // return <Redirect to={`/restaurants/byName/${searchVal}`} />
     }
 
     if (redirectToResults && current.searchType === 'cuisine') {
-      return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
+      return <Redirect to="/underConstruction" />
+      // return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
     }
 
     if (redirectToResults && current.searchType === 'location') {
@@ -58,7 +60,7 @@ class SearchCard extends React.Component {
               className="mr-sm-2"
               onChange={this.handleChange}
             />
-            <Button type="submit" variant="outline-info">
+            <Button type="submit" variant="outline-dark">
               Search
             </Button>
           </Form>

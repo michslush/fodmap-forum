@@ -19,3 +19,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.nav-links-custom {
+  display: flex;
+}
+
+button.btn.btn-outline-dark {
+  margin: 2%;
+}
