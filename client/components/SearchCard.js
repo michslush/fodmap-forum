@@ -1,7 +1,5 @@
 import React from 'react'
-import {searchThunk} from '../store/restaurant'
 import {Card, Form, FormControl, Button} from 'react-bootstrap'
-import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 class SearchCard extends React.Component {
@@ -21,7 +19,6 @@ class SearchCard extends React.Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-    this.props.searchThunk(this.state.searchVal, this.props.current.searchType)
     this.setState({
       redirectToResults: true
     })
@@ -33,12 +30,10 @@ class SearchCard extends React.Component {
 
     if (redirectToResults && current.searchType === 'name') {
       return <Redirect to="/underConstruction" />
-      // return <Redirect to={`/restaurants/byName/${searchVal}`} />
     }
 
     if (redirectToResults && current.searchType === 'cuisine') {
       return <Redirect to="/underConstruction" />
-      // return <Redirect to={`/restaurants/byCuisine/${searchVal}`} />
     }
 
     if (redirectToResults && current.searchType === 'location') {
@@ -70,12 +65,4 @@ class SearchCard extends React.Component {
   }
 }
 
-const mapState = state => ({
-  restaurants: state.restaurants
-})
-
-const mapDispatch = dispatch => ({
-  searchThunk: (name, type) => dispatch(searchThunk(name, type))
-})
-
-export default connect(mapState, mapDispatch)(SearchCard)
+export default SearchCard

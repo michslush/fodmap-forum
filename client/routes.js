@@ -5,13 +5,12 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   LandingPage,
-  UnderConstruction
+  UnderConstruction,
+  SingleRestaurant,
+  SearchResults
 } from './components'
 import {me} from './store'
-import SearchResults from './components/SearchResults'
-import SingleRestaurant from './components/SingleRestaurant'
 
 class Routes extends Component {
   componentDidMount() {
@@ -26,27 +25,18 @@ class Routes extends Component {
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/restaurants/byName/:name" component={SearchResults} />
-        <Route path="/restaurants/byCuisine/:name" component={SearchResults} />
         <Route path="/restaurants/byLocation/:name" component={SearchResults} />
-        <Route
-          path="/restaurants/singleRestaurant/:name"
-          component={SingleRestaurant}
-        />
+        <Route path="/restaurant/:name" component={SingleRestaurant} />
         <Route path="/underConstruction" component={UnderConstruction} />
 
         {isLoggedIn && (
           <Switch>
-            <Route path="/home" component={UserHome} />
-            <Route path="/restaurants/byName/:name" component={SearchResults} />
-            <Route
-              path="/restaurants/byCuisine/:name"
-              component={SearchResults}
-            />
+            <Route path="/" component={LandingPage} />
             <Route
               path="/restaurants/byLocation/:name"
               component={SearchResults}
             />
+            <Route path="/restaurant/:name" component={SingleRestaurant} />
             <Route path="/underConstruction" component={UnderConstruction} />
           </Switch>
         )}

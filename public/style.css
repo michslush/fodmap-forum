@@ -27,3 +27,11 @@ form div {
 button.btn.btn-outline-dark {
   margin: 2%;
 }
+
+.restaurant-comment {
+  list-style: none;
+}
+
+a.card-link {
+  color: #212529;
+}

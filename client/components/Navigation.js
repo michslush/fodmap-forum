@@ -45,6 +45,6 @@ const mapDispatch = dispatch => {
 export default connect(mapState, mapDispatch)(Navigation)
 
 Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  handleClick: PropTypes.func,
+  isLoggedIn: PropTypes.bool
 }

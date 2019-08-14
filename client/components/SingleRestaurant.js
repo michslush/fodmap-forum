@@ -1,49 +1,53 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getSingleRestaurantThunk} from '../store/restaurant'
-import {Jumbotron, Button} from 'react-bootstrap'
+import {getSingleRestaurantThunk, loadCommentsThunk} from '../store/restaurant'
+import {Jumbotron, Button, Image, ListGroup} from 'react-bootstrap'
 import {CommentForm} from './index'
 
 class SingleRestaurant extends React.Component {
   constructor() {
     super()
     this.state = {
+      showButton: true,
       showForm: false
     }
   }
 
   componentDidMount() {
     this.props.getSingleRestaurantThunk(this.props.match.params.name)
+    this.props.loadCommentsThunk(this.props.match.params.name)
   }
 
   handleClick = () => {
     this.state.showForm
-      ? this.setState({showForm: false})
-      : this.setState({showForm: true})
+      ? this.setState({showForm: false, showButton: true})
+      : this.setState({showForm: true, showButton: false})
   }
 
   render() {
-    const {restaurant} = this.props
-    const {showForm} = this.state
+    const {restaurant, comments} = this.props
+    const {showForm, showButton} = this.state
 
     if (restaurant)
       return (
         <Jumbotron>
           <h1>{restaurant.name}</h1>
-          <h4>
-            {restaurant.address} {restaurant.city}, {restaurant.state}
-          </h4>
-          <ul>
-            {restaurant.comments &&
-              restaurant.comments.map(comment => (
-                <li key={comment.id}>{comment.content}</li>
+          <Image src={restaurant.image_url} style={{width: '200px'}} />
+          <ListGroup>
+            {comments &&
+              comments.map(comment => (
+                <ListGroup.Item className="restaurant-comment" key={comment.id}>
+                  {comment.content}
+                </ListGroup.Item>
               ))}
-          </ul>
-          <p>
-            <Button type="button" variant="primary" onClick={this.handleClick}>
-              Add a new comment!
-            </Button>
-          </p>
+          </ListGroup>
+          {showButton && (
+            <p>
+              <Button type="button" variant="dark" onClick={this.handleClick}>
+                Add a new comment!
+              </Button>
+            </p>
+          )}
           {showForm && <CommentForm restaurantId={restaurant.id} />}
         </Jumbotron>
       )
@@ -53,12 +57,13 @@ class SingleRestaurant extends React.Component {
 }
 
 const MapDispatch = dispatch => ({
-  getSingleRestaurantThunk: name => dispatch(getSingleRestaurantThunk(name))
+  getSingleRestaurantThunk: id => dispatch(getSingleRestaurantThunk(id)),
+  loadCommentsThunk: id => dispatch(loadCommentsThunk(id))
 })
 
 const MapState = state => ({
-  restaurant: state.restaurants.singleRestaurant
-  // comments: state.comments.comment
+  restaurant: state.restaurants.singleRestaurant,
+  comments: state.restaurants.comments
 })
 
 export default connect(MapState, MapDispatch)(SingleRestaurant)

@@ -37,7 +37,7 @@ class CommentForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="formBasicComment">
-          <Form.Label>Comment</Form.Label>
+          <Form.Label>Leave a comment!</Form.Label>
           <Form.Control
             onChange={this.handleChange}
             as="textarea"
@@ -50,7 +50,7 @@ class CommentForm extends React.Component {
           />
         </Form.Group>
         <p>
-          <Button variant="primary" type="submit">
+          <Button variant="dark" type="submit">
             Submit
           </Button>
         </p>

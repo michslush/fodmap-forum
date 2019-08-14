@@ -1,22 +1,24 @@
 const router = require('express').Router()
-const {Comment, Restaurant} = require('../db/models')
+const {Comment} = require('../db/models')
 module.exports = router
+
+router.get('/:restaurantId', async (req, res, next) => {
+  try {
+    const comments = await Comment.findAll({
+      where: {restaurantId: req.params.restaurantId}
+    })
+
+    res.send(comments)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.post('/addComment', async (req, res, next) => {
   try {
-    // create the comment
-    await Comment.create(req.body)
+    const newComment = await Comment.create(req.body)
 
-    // get the updated restaurant
-    const updatedRestaurant = await Restaurant.findOne({
-      where: {
-        id: req.body.restaurantId
-      },
-      include: [{model: Comment}]
-    })
-
-    // send it
-    res.json(updatedRestaurant)
+    res.json(newComment)
   } catch (err) {
     next(err)
   }

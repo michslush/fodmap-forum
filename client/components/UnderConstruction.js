@@ -10,7 +10,7 @@ export const UnderConstruction = () => {
           This feature is currently under construction. For now, you can search
           by location! Check back soon!!!
         </p>
-        <Button href="/home" variant="primary">
+        <Button href="/home" variant="dark">
           Back to home
         </Button>
       </Container>
