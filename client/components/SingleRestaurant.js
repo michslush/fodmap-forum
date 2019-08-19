@@ -1,17 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleRestaurantThunk, loadCommentsThunk} from '../store/restaurant'
-import {
-  Jumbotron,
-  Button,
-  Card,
-  ListGroup,
-  Container,
-  Row,
-  Col,
-  CardColumns
-} from 'react-bootstrap'
-import {CommentForm, YelpLogo} from './index'
+import {Jumbotron, Button, Card, ListGroup, CardColumns} from 'react-bootstrap'
+import {CommentForm, YelpLogo, RestaurantDetails} from './index'
 
 class SingleRestaurant extends React.Component {
   constructor() {
@@ -40,32 +31,18 @@ class SingleRestaurant extends React.Component {
     if (restaurant)
       return (
         <Jumbotron>
-          <Container>
-            <Row>
-              <Col>
-                <h1>{restaurant.name}</h1>
-                <h6>
-                  Price {restaurant.price} | Rating {restaurant.rating}
-                </h6>
-                <p>
-                  {restaurant.categories &&
-                    restaurant.categories
-                      .map(current => current.title)
-                      .join(', ')}
-                </p>
-                <ListGroup>
-                  {comments &&
-                    comments.map(comment => (
-                      <ListGroup.Item
-                        className="restaurant-comment"
-                        key={comment.id}
-                      >
-                        {comment.content}
-                      </ListGroup.Item>
-                    ))}
-                </ListGroup>
-              </Col>
-              <Col>
+          <CardColumns>
+            <RestaurantDetails restaurant={restaurant} />
+
+            {restaurant.photos &&
+              restaurant.photos.map((photo, idx) => (
+                <Card key={idx} style={{width: '70%'}}>
+                  <Card.Img src={photo} />
+                </Card>
+              ))}
+
+            <Card>
+              <Card.Body>
                 <div className="seeMoreOnYelp">
                   See more about this restaurant on
                   <YelpLogo url={restaurant.url} />
@@ -81,20 +58,21 @@ class SingleRestaurant extends React.Component {
                     </Button>
                   </p>
                 )}
+                <ListGroup>
+                  {comments &&
+                    comments.map(comment => (
+                      <ListGroup.Item
+                        className="restaurant-comment"
+                        key={comment.id}
+                      >
+                        {comment.content}
+                      </ListGroup.Item>
+                    ))}
+                </ListGroup>
                 {showForm && <CommentForm restaurantId={restaurant.id} />}
-              </Col>
-            </Row>
-            <Row>
-              <CardColumns>
-                {restaurant.photos &&
-                  restaurant.photos.map((photo, idx) => (
-                    <Card key={idx} style={{width: '70%'}}>
-                      <Card.Img src={photo} rounded />
-                    </Card>
-                  ))}
-              </CardColumns>
-            </Row>
-          </Container>
+              </Card.Body>
+            </Card>
+          </CardColumns>
         </Jumbotron>
       )
 
