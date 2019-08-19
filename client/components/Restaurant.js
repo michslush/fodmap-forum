@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card} from 'react-bootstrap'
+import {YelpLogo} from './index'
 
 export const Restaurant = props => {
   const {restaurant} = props
@@ -25,6 +26,7 @@ export const Restaurant = props => {
         <Card.Text>
           Stars {restaurant.rating} | Cost {restaurant.price}
         </Card.Text>
+        <YelpLogo url={restaurant.url} />
       </Card.Body>
     </Card>
   )

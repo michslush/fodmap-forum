@@ -35,3 +35,19 @@ button.btn.btn-outline-dark {
 a.card-link {
   color: #212529;
 }
+
+#yelpLogo {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.yelpLogo {
+  justify-self: flex-end;
+  align-self: center;
+}
+
+.seeMoreOnYelp {
+  width: fit-content;
+}
