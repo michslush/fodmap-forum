@@ -1,5 +1,5 @@
 import React from 'react'
-import {ListGroup} from 'react-bootstrap'
+import {ListGroup, Card} from 'react-bootstrap'
 
 const hours = {
   0: 'Monday',
@@ -16,7 +16,7 @@ export const RestaurantHours = props => {
 
   return (
     <ListGroup style={{width: 'fit-content'}}>
-      <ListGroup.Item variant="dark">Hours</ListGroup.Item>
+      <Card.Header variant="dark">Hours</Card.Header>
       {restaurant.hours &&
         restaurant.hours[0].open.map(day => {
           return (

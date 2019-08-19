@@ -7,7 +7,7 @@ import {Navbar, Nav} from 'react-bootstrap'
 const Navigation = ({handleClick, isLoggedIn}) => (
   <Navbar bg="light" expand="lg">
     <Navbar.Brand href="/home">
-      <h1>FODMAPforum</h1>
+      <h1 id="website-title">FODMAPforum</h1>
     </Navbar.Brand>
     <Nav className="mr-auto">
       {isLoggedIn ? (

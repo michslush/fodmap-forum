@@ -51,3 +51,15 @@ a.card-link {
 .seeMoreOnYelp {
   width: fit-content;
 }
+
+.restaurant-image:hover {
+  transform: scale(1.1);
+}
+
+a.card-link:hover {
+  color: grey;
+}
+
+#website-title:hover {
+  color: grey;
+}
