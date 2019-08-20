@@ -63,3 +63,7 @@ a.card-link:hover {
 #website-title:hover {
   color: grey;
 }
+
+#myPlacesIcon:hover {
+  transform: scale(1.1);
+}

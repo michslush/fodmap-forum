@@ -17,7 +17,11 @@ const Navigation = ({handleClick, isLoggedIn}) => (
             Logout
           </Nav.Link>
           <Nav.Link href="/myPlaces">
-            <Image src="/places.png" style={{width: '70px'}} />
+            <Image
+              id="myPlacesIcon"
+              src="/places.png"
+              style={{width: '70px'}}
+            />
           </Nav.Link>
         </div>
       ) : (

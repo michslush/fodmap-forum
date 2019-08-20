@@ -15,9 +15,17 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    const {id, name, url, price, rating} = req.body
+    const imageUrl = req.body.image_url
+
     const newPlace = await Places.create({
-      restaurantId: req.body.id,
-      userId: req.user.id
+      restaurantId: id,
+      userId: req.user.id,
+      name,
+      imageUrl,
+      url,
+      price,
+      rating
     })
     res.json(newPlace)
   } catch (err) {

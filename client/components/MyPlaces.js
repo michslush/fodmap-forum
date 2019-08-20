@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getMyPlacesThunk} from '../store/myPlaces'
+import {PlaceCard} from './index'
 
 class MyPlaces extends React.Component {
   componentDidMount() {
@@ -8,16 +9,24 @@ class MyPlaces extends React.Component {
   }
 
   render() {
+    const {myPlaces} = this.props
+
     return (
       <div>
-        {this.props.places && this.props.places.map(current => current.name)}
+        <h1>My Places</h1>
+        <div>
+          {myPlaces &&
+            myPlaces.map(current => (
+              <PlaceCard key={current.id} restaurant={current} />
+            ))}
+        </div>
       </div>
     )
   }
 }
 
 const MapState = state => ({
-  myPlaces: state.places
+  myPlaces: state.places.myPlaces
 })
 
 const MapDispatch = dispatch => ({
