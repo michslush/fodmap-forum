@@ -2,37 +2,46 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Form, Button} from 'react-bootstrap'
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <div>
-            <label htmlFor="username">
-              <small>Username:</small>
-            </label>
-            <input name="username" type="text" />
-          </div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
+      <Form onSubmit={handleSubmit} name={name}>
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            name="username"
+            type="username"
+            placeholder="Enter username"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formEmail">
+          <Form.Label>E-mail</Form.Label>
+          <Form.Control name="email" type="email" placeholder="Enter email" />
+        </Form.Group>
+
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            name="password"
+            type="password"
+            placeholder="Enter password"
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          {displayName}
+        </Button>
+
         {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      </Form>
+      <div id="withGoogle">
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }

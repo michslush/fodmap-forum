@@ -67,3 +67,7 @@ a.card-link:hover {
 #myPlacesIcon:hover {
   transform: scale(1.1);
 }
+
+#withGoogle {
+  margin: 2%;
+}
