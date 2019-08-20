@@ -21,7 +21,12 @@ export const RestaurantHours = props => {
         restaurant.hours[0].open.map(day => {
           return (
             <ListGroup.Item key={day.day}>
-              {hours[day.day]}: {day.start} - {day.end}
+              {hours[day.day]}: {Math.floor(day.start / 100)}:{day.start % 100
+                ? day.start % 100
+                : '00'}{' '}
+              - {Math.floor(day.end / 100)}:{day.end % 100
+                ? day.end % 100
+                : '00'}
             </ListGroup.Item>
           )
         })}

@@ -5,7 +5,7 @@ const Places = require('./places')
 Comment.belongsTo(User)
 User.hasMany(Comment)
 
-Places.belongsToMany(User, {through: 'my-places'})
+Places.belongsTo(User)
 User.hasMany(Places)
 
 module.exports = {

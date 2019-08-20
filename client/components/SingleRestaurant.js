@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {getSingleRestaurantThunk, loadCommentsThunk} from '../store/restaurant'
 import {Jumbotron, Button, Card, ListGroup, CardColumns} from 'react-bootstrap'
-import {CommentForm, YelpLogo, RestaurantDetails} from './index'
+import {CommentForm, YelpLogo, RestaurantDetails, AddToMyPlaces} from './index'
 
 class SingleRestaurant extends React.Component {
   constructor() {
@@ -33,6 +33,9 @@ class SingleRestaurant extends React.Component {
         <Jumbotron>
           <CardColumns>
             <RestaurantDetails restaurant={restaurant} />
+
+            {/** this is where I want to put the add to My Places list */}
+            <AddToMyPlaces restaurant={restaurant} />
 
             {restaurant.photos &&
               restaurant.photos.map((photo, idx) => (

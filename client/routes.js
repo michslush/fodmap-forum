@@ -8,7 +8,8 @@ import {
   LandingPage,
   UnderConstruction,
   SingleRestaurant,
-  SearchResults
+  SearchResults,
+  MyPlaces
 } from './components'
 import {me} from './store'
 
@@ -31,13 +32,15 @@ class Routes extends Component {
 
         {isLoggedIn && (
           <Switch>
-            <Route path="/" component={LandingPage} />
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/home" component={LandingPage} />
             <Route
               path="/restaurants/byLocation/:name"
               component={SearchResults}
             />
             <Route path="/restaurant/:name" component={SingleRestaurant} />
             <Route path="/underConstruction" component={UnderConstruction} />
+            <Route path="/myPlaces" component={MyPlaces} />
           </Switch>
         )}
         <Route component={Login} />

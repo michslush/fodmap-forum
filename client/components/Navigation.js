@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {logout} from '../store'
-import {Navbar, Nav} from 'react-bootstrap'
+import {Navbar, Nav, Image} from 'react-bootstrap'
 
 const Navigation = ({handleClick, isLoggedIn}) => (
   <Navbar bg="light" expand="lg">
@@ -15,6 +15,9 @@ const Navigation = ({handleClick, isLoggedIn}) => (
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/" onClick={handleClick}>
             Logout
+          </Nav.Link>
+          <Nav.Link href="/myPlaces">
+            <Image src="/places.png" style={{width: '70px'}} />
           </Nav.Link>
         </div>
       ) : (
